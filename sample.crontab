@@ -1,0 +1,2 @@
+*/30 * * * * ssh -4 nsserver /path/to/updatens your.domain
+*/30 * * * * ssh -6 nsserver /path/to/updatens your.domain

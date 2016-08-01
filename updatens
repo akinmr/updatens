@@ -1,0 +1,16 @@
+#!/bin/bash
+
+CLIENT=($SSH_CLIENT)
+HOSTNAME=$1
+
+case $CLIENT in
+  *.*.*.*) ENTRY=A;;
+  *:*:*)   ENTRY=AAAA;;
+  default) echo "Address resolution failed" 1>&2; exit;;
+esac
+
+cat <<EOF | nsupdate
+update delete $HOSTNAME $ENTRY
+update add $HOSTNAME 1800 $ENTRY $CLIENT
+send
+EOF
